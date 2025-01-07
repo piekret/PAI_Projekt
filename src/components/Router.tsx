@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Links } from '../constants/links'
 import { HomePage } from "../pages/HomePage";
 import { RecipeList } from "../pages/RecipeList";
+import { RecipeItem } from "../pages/RecipeItem";
 
 const router = createBrowserRouter([
     {
@@ -10,7 +11,11 @@ const router = createBrowserRouter([
     },
     {
         path: Links.RECIPES,
-        element: <RecipeList />
+        element: <RecipeList />,
+    },
+    {
+        path: `${Links.RECIPES}/:id`,
+        element: <RecipeItem />
     }
 ])
 
