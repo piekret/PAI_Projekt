@@ -1,4 +1,6 @@
 import { useForm } from 'react-hook-form';
+import { useRecipe } from '../context/useRecipe';
+import { useNavigate } from 'react-router-dom';
 
 type FormValues = {
   name: string;
@@ -11,13 +13,16 @@ type FormValues = {
 
 export const AddRecipe = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
+  const { addRecipe } = useRecipe();
+  const navigate = useNavigate();
 
   const onSubmit = (data: FormValues) => {
     const recipe = {
       ...data,
       ingredients: data.ingredients.split(',').map(s => s.trim())
     };
-    console.log(recipe);
+    addRecipe(recipe);
+    navigate('/recipes')
   };
 
   return (

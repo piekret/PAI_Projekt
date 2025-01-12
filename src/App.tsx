@@ -1,8 +1,11 @@
 import { Router } from './components/Router'
+import { RecipeProvider } from './context/RecipeProvider'
 
 function App() {
   return (
-    <Router />
+    <RecipeProvider>
+      <Router />
+    </RecipeProvider>
   )
 }
 
