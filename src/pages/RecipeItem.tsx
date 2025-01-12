@@ -1,6 +1,5 @@
 import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
-import "../styles/RecipeItem.css"
 
 export const RecipeItem = () => {
     const {id} = useParams();
