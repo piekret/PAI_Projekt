@@ -66,8 +66,8 @@ export const RecipeList = () => {
                     >
                         <div className="p-4">
                             <img
-                                src={r.strMealThumb}
-                                alt={r.strMeal}
+                                src={r.strMealThumb || ""}
+                                alt={r.strMeal || ""}
                                 className="w-full h-32 object-cover rounded mb-4"
                             />
                             <p className="text-lg font-medium text-gray-700">{r.strMeal}</p>
