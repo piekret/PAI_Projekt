@@ -32,14 +32,20 @@ export const RecipeList = () => {
         return <div className="text-center text-xl">Ładowanie przepisów...</div>;
     }
 
-    if (!recipes) {
+    if (!apiRecipes) {
         return (
         <div className="p-8 text-center bg-gray-100 min-h-screen rounded mb-4">
         <h1 className="text-3xl font-bold text-gray-800 mb-6">Lista Przepisów</h1>
-            <input type="text" placeholder="Wyszukaj przepis" value={searchQuery} onChange={handleSearch}/>
+            <input 
+            type="text" 
+            placeholder="Wyszukaj przepis"
+            value={searchQuery} 
+            onChange={handleSearch}
+            className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-[30px]"
+            />
         </div>
         )
-    }
+    } else {
     return (
         <div className="p-8 text-center bg-gray-100 min-h-screen rounded mb-4">
             <h1 className="text-3xl font-bold text-gray-800 mb-6">Lista Przepisów</h1>
@@ -88,4 +94,4 @@ export const RecipeList = () => {
         </div>
     )
     };
-
+}
