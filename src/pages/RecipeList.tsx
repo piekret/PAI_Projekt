@@ -6,7 +6,7 @@ export const RecipeList = () => {
     const [ apiRecipes, setapiRecipes ] = useState<Record<string, string | null>[]>([]);
     const [ loading, setLoading ] = useState(true);
     const { recipes } = useRecipe();
-    let [searchQuery, setSearchQuery] = useState("");
+    const [searchQuery, setSearchQuery] = useState("");
     
     useEffect(() => {
         const getapiRecipes = async () => {
@@ -29,16 +29,16 @@ export const RecipeList = () => {
     };
 
     if (loading) {
-        return <div className="text-center text-xl">Ładowanie przepisów...</div>;
+        return <div className="text-center text-xl">Loading ok ok</div>;
     }
 
     if (!apiRecipes) {
         return (
         <div className="p-8 text-center bg-gray-100 min-h-screen rounded mb-4">
-        <h1 className="text-3xl font-bold text-gray-800 mb-6">Lista Przepisów</h1>
+        <h1 className="text-3xl font-bold text-gray-800 mb-6">Recipe List</h1>
             <input 
             type="text" 
-            placeholder="Wyszukaj przepis"
+            placeholder="Search"
             value={searchQuery} 
             onChange={handleSearch}
             className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-[30px]"
@@ -48,7 +48,7 @@ export const RecipeList = () => {
     } else {
     return (
         <div className="p-8 text-center bg-gray-100 min-h-screen rounded mb-4">
-            <h1 className="text-3xl font-bold text-gray-800 mb-6">Lista Przepisów</h1>
+            <h1 className="text-3xl font-bold text-gray-800 mb-6">Recipe List</h1>
                 <input
                     type="text"
                     placeholder="Wyszukaj przepis"
@@ -57,6 +57,10 @@ export const RecipeList = () => {
                     
                     className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-[30px]"
                     />
+                <Link
+                to="/add-recipe"
+                className="inline-block mt-4 px-6 py-3 text-xl font-semibold text-gray-700 bg-gray-200 shadow-md hover:bg-gray-300 transition-transform transform hover:translate-y-[-3px] ml-5"
+                >New</Link>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {apiRecipes.map(r => (
                     <Link

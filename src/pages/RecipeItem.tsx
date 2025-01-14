@@ -31,7 +31,7 @@ export const RecipeItem = () => {
     }
 
     if (loading) {
-        return <p>Czekaj bo ładuje</p>
+        return <p>Loading ok ok</p>
     }
 
     const ingredients = getIngredients();
@@ -43,18 +43,18 @@ export const RecipeItem = () => {
 
             <div className="rounded-md shadow-sm p-4 mb-6 bg-gray-100">
                 <h2 className="text-lg font-semibold text-gray-700 mb-2">Informacje</h2>
-                <h3 className="text-gray-600">Kategoria: {recipe.strCategory}</h3>
-                <h3 className="text-gray-600">Kuchnia: {recipe.strArea}</h3>
+                <h3 className="text-gray-600">Category: {recipe.strCategory}</h3>
+                <h3 className="text-gray-600">Cuisine: {recipe.strArea}</h3>
             </div>
 
-            <h2 className="text-lg font-semibold text-gray-700 mb-4">Potrzebne składniki:</h2>
+            <h2 className="text-lg font-semibold text-gray-700 mb-4">Ingredients:</h2>
             <ul className="text-left text-gray-600 list-disc list-inside">
                 {ingredients.map((i) => (
                     <li key={i}>{i}</li>
                 ))}
             </ul>
 
-            <h2 className="text-lg font-semibold text-gray-700 mt-6 mb-4">Instrukcja przygotowania:</h2>
+            <h2 className="text-lg font-semibold text-gray-700 mt-6 mb-4">Instructions:</h2>
             <p className="text-gray-600 text-left whitespace-pre-wrap bg-gray-100 rounded-md p-2">{recipe.strInstructions}</p>
         </div>
     )

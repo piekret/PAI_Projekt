@@ -29,19 +29,21 @@ export const AddRecipe = () => {
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <form onSubmit={handleSubmit(onSubmit)} className="max-w-3xl w-full bg-white shadow-lg rounded-lg p-6 space-y-6">
         <div>
-          <label className="block text-gray-700 font-medium mb-2">Name:</label>
+          <label className="block text-gray-700 font-medium mb-2" htmlFor='input1'>Name:</label>
           <input
             {...register('name', { required: 'This field is required' })}
             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
+            id="input1"
           />
           {errors.name && <span className="text-red-500 text-sm">{errors.name.message}</span>}
         </div>
 
         <div>
-          <label className="block text-gray-700 font-medium mb-2">Category:</label>
+          <label className="block text-gray-700 font-medium mb-2" htmlFor='select1'>Category:</label>
           <select
             {...register('category', { required: 'This field is required' })}
             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
+            id='select1'
           >
             <option value="">Select category</option>
             <option value="pasta">Pasta</option>
@@ -55,38 +57,42 @@ export const AddRecipe = () => {
         </div>
 
         <div>
-          <label className="block text-gray-700 font-medium mb-2">Cuisine:</label>
+          <label className="block text-gray-700 font-medium mb-2" htmlFor='input2'>Cuisine:</label>
           <input
             {...register('cuisine', { required: 'This field is required' })}
             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
+            id='input2'
           />
           {errors.cuisine && <span className="text-red-500 text-sm">{errors.cuisine.message}</span>}
         </div>
 
         <div>
-          <label className="block text-gray-700 font-medium mb-2">Ingredients (separate by ,):</label>
+          <label className="block text-gray-700 font-medium mb-2" htmlFor=''>Ingredients (separate with ,):</label>
           <textarea
             {...register('ingredients', { required: 'This field is required' })}
             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
+            id='textarea1'
           />
           {errors.ingredients && <span className="text-red-500 text-sm">{errors.ingredients.message}</span>}
         </div>
 
         <div>
-          <label className="block text-gray-700 font-medium mb-2">Image (URL):</label>
+          <label className="block text-gray-700 font-medium mb-2" htmlFor='input3'>Image (URL):</label>
           <input
             {...register('image', { required: 'This field is required' })}
             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
+            id='input3'
           />
           {errors.image && <span className="text-red-500 text-sm">{errors.image.message}</span>}
         </div>
 
         <div>
-          <label className="block text-gray-700 font-medium mb-2">Instructions:</label>
+          <label className="block text-gray-700 font-medium mb-2" htmlFor='textarea2'>Instructions:</label>
           <textarea
             {...register('instructions', { required: 'This field is required' })}
             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
-          ></textarea>
+            id='textarea2'
+          />
           {errors.instructions && <span className="text-red-500 text-sm">{errors.instructions.message}</span>}
         </div>
 
