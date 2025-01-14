@@ -3,6 +3,7 @@ import { Links } from '../constants/links'
 import { HomePage } from "../pages/HomePage";
 import { RecipeList } from "../pages/RecipeList";
 import { RecipeItem } from "../pages/RecipeItem";
+import { AddRecipe } from "../pages/AddRecipe";
 
 const router = createBrowserRouter([
     {
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
     {
         path: `${Links.RECIPES}/:id`,
         element: <RecipeItem />
+    },
+    {
+        path: Links.ADDRECIPE,
+        element: <AddRecipe />
     }
 ])
 
