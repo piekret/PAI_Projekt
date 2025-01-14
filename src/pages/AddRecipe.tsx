@@ -1,8 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { useRecipe } from '../context/useRecipe';
-import type { Recipe, RecipeNoId } from '../context/RecipeContext';
+import type { RecipeNoId } from '../context/RecipeContext';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
 
 type FormValues = Omit<RecipeNoId, "ingredients"> & {
   ingredients: string
