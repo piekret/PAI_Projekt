@@ -4,12 +4,16 @@ import type { Recipe, RecipeNoId } from '../context/RecipeContext';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
+type FormValues = Omit<RecipeNoId, "ingredients"> & {
+  ingredients: string
+}
+
 export const AddRecipe = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm<RecipeNoId>();
+  const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
   const { addRecipe } = useRecipe();
   const navigate = useNavigate();
 
-  const onSubmit = (data: RecipeNoId) => {
+  const onSubmit = (data: FormValues) => {
     const recipe = {
       ...data,
       ingredients: data.ingredients.split(',').map(s => s.trim())
