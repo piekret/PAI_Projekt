@@ -80,7 +80,7 @@ export const RecipeList = () => {
                 ))}
                 {recipes.map(r => (
                     <Link
-                    to={`/recipes/${r.name}`}
+                    to={`/recipes/user-${r.id}`}
                     key={r.name}
                     className="border border-gray-200 rounded-lg bg-white shadow hover:shadow-lg hover:scale-105 transition-transform"
                 >

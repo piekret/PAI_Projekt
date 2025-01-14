@@ -31,7 +31,7 @@ export const RecipeItem = () => {
     }
 
     if (loading) {
-        return <p>Loading ok ok</p>
+        return <div className="text-center text-xl">Loading ok ok</div>;
     }
 
     const ingredients = getIngredients();
