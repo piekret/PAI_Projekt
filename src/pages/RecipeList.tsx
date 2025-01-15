@@ -36,6 +36,10 @@ export const RecipeList = () => {
     recipes.name.includes(searchQuery)
   );
 
+  const sortedFiltredRecipes = recipes.filter((recipes) =>
+    recipes.category.includes(sorted)
+  );
+
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
   };
@@ -104,6 +108,22 @@ export const RecipeList = () => {
                   className="w-full h-32 object-cover rounded mb-4"
                 />
                 <p className="text-lg font-medium text-gray-700">{r.strMeal}</p>
+              </div>
+            </Link>
+          ))}
+          {sortedFiltredRecipes.map((r) => (
+            <Link
+              to={`/recipes/user-${r.id}`}
+              key={r.name}
+              className="border border-gray-200 rounded-lg bg-white shadow hover:shadow-lg hover:scale-105 transition-transform"
+            >
+              <div className="p-4">
+                <img
+                  src={r.image}
+                  alt={r.name}
+                  className="w-full h-32 object-cover rounded mb-4"
+                />
+                <p className="text-lg font-medium text-gray-700">{r.name}</p>
               </div>
             </Link>
           ))}
