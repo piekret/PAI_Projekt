@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useRecipe } from "../context/useRecipe";
+import { set } from "react-hook-form";
 
 export const RecipeList = () => {
   const [apiRecipes, setapiRecipes] = useState<Record<string, string | null>[]>(
@@ -36,10 +37,6 @@ export const RecipeList = () => {
     recipes.name.includes(searchQuery)
   );
 
-  const sortedFiltredRecipes = recipes.filter((recipes) =>
-    recipes.category.includes(sorted)
-  );
-
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
   };
@@ -69,7 +66,14 @@ export const RecipeList = () => {
     return <div className="text-center text-xl">Loading ok ok</div>;
   }
 
-  if (sortedRecipes) {
+  //   const sortedFiltredRecipes = recipes.filter((recipes) =>
+  //     recipes.category.includes(sorted)
+  //   );
+  const sortedFiltredRecipes = recipes.filter((recipes) =>
+    recipes.category.includes(sorted)
+  );
+
+if (sortedRecipes && sortedFiltredRecipes.length > 0) {
     return (
       <div className="p-8 text-center bg-gray-100 min-h-screen rounded mb-4">
         <div>
@@ -130,6 +134,94 @@ export const RecipeList = () => {
         </div>
       </div>
     );
+  } else if (sortedRecipes && sortedFiltredRecipes.length === 0) {
+    return (
+        <div className="p-8 text-center bg-gray-100 min-h-screen rounded mb-4">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-800 mb-6">Recipe List</h1>
+            <Link
+              to="/add-recipe"
+              className="inline-block mt-4 px-6 py-3 text-xl font-semibold text-gray-700 bg-gray-200 shadow-md hover:bg-gray-300 transition-transform transform hover:translate-y-[-3px] ml-5"
+            >
+              Add new recipe
+            </Link>
+            <select
+              className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-300 ml-8 mb-8"
+              onChange={(event) => setSorted(event.target.value)}
+              value={sorted}
+            >
+              <option value="">Select category</option>
+              <option value="pasta">Pasta</option>
+              <option value="seafood">Seafood</option>
+              <option value="meat">Meat</option>
+              <option value="dessert">Dessert</option>
+              <option value="soup">Soup</option>
+              <option value="miscellaneous">Miscellaneous</option>
+            </select>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {sortedRecipes.map((r) => (
+              <Link
+                to={`/recipes/${r.idMeal}`}
+                key={r.idMeal}
+                className="border border-gray-200 rounded-lg bg-white shadow hover:shadow-lg hover:scale-105 transition-transform"
+              >
+                <div className="p-4">
+                  <img
+                    src={r.strMealThumb || ""}
+                    alt={r.strMeal || ""}
+                    className="w-full h-32 object-cover rounded mb-4"
+                  />
+                  <p className="text-lg font-medium text-gray-700">{r.strMeal}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      );
+  } else if (sorted && !sortedRecipes && sortedFiltredRecipes.length > 0) {
+    return (
+        <div className="p-8 text-center bg-gray-100 min-h-screen rounded mb-4">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-800 mb-6">Recipe List</h1>
+            <Link
+              to="/add-recipe"
+              className="inline-block mt-4 px-6 py-3 text-xl font-semibold text-gray-700 bg-gray-200 shadow-md hover:bg-gray-300 transition-transform transform hover:translate-y-[-3px] ml-5"
+            >
+              Add new recipe
+            </Link>
+            <select
+              className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-300 ml-8 mb-8"
+              onChange={(event) => setSorted(event.target.value)}
+              value={sorted}
+            >
+              <option value="">Select category</option>
+              <option value="pasta">Pasta</option>
+              <option value="seafood">Seafood</option>
+              <option value="meat">Meat</option>
+              <option value="dessert">Dessert</option>
+              <option value="soup">Soup</option>
+              <option value="miscellaneous">Miscellaneous</option>
+            </select>
+          </div>
+            {sortedFiltredRecipes.map((r) => (
+              <Link
+                to={`/recipes/user-${r.id}`}
+                key={r.name}
+                className="border border-gray-200 rounded-lg bg-white shadow hover:shadow-lg hover:scale-105 transition-transform"
+              >
+                <div className="p-4">
+                  <img
+                    src={r.image}
+                    alt={r.name}
+                    className="w-full h-32 object-cover rounded mb-4"
+                  />
+                  <p className="text-lg font-medium text-gray-700">{r.name}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+      );
   }
 
   if (!apiRecipes) {
