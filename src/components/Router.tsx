@@ -17,10 +17,6 @@ const router = createBrowserRouter([
         element: <RecipeList />,
     },
     {
-        path: `${Links.USERRECIPE}/:id`,
-        element: <UserRecipeItem />
-    },
-    {
         path: `${Links.RECIPES}/:id`,
         element: <RecipeItem />
     },
