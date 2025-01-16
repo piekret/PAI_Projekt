@@ -1,5 +1,6 @@
 export enum Links {
     HOMEPAGE = "/",
     RECIPES = "/recipes",
-    ADDRECIPE = "/add-recipe"
+    ADDRECIPE = "/add-recipe",
+    USERRECIPE = "/user"
 }

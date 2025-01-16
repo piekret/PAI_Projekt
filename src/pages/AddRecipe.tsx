@@ -11,7 +11,7 @@ type FormValues = Omit<RecipeNoId, "ingredients"> & {
 export const AddRecipe = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
   const { addRecipe } = useRecipe();
-  const [categories, setCategories] = useState<string[]>([])
+  const [categories, setCategories] = useState<Record<string, string>[]>([])
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
