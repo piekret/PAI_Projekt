@@ -1,9 +1,10 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Links } from '../constants/links'
+import { Links } from '../constants/links';
 import { HomePage } from "../pages/HomePage";
 import { RecipeList } from "../pages/RecipeList";
 import { RecipeItem } from "../pages/RecipeItem";
 import { AddRecipe } from "../pages/AddRecipe";
+import { NotFoundPage } from "../pages/NotFoundPage"; 
 
 const router = createBrowserRouter([
     {
@@ -21,9 +22,13 @@ const router = createBrowserRouter([
     {
         path: Links.ADDRECIPE,
         element: <AddRecipe />
+    },
+    {
+        path: "*", 
+        element: <NotFoundPage />
     }
-])
+]);
 
 export const Router = () => {
-    return <RouterProvider router={router}/>
-}
+    return <RouterProvider router={router} />;
+};
