@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form';
 import { useRecipe } from '../context/useRecipe';
 import type { RecipeNoId } from '../context/RecipeContext';
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 type FormValues = Omit<RecipeNoId, "ingredients"> & {
   ingredients: string
@@ -10,7 +11,25 @@ type FormValues = Omit<RecipeNoId, "ingredients"> & {
 export const AddRecipe = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
   const { addRecipe } = useRecipe();
+  const [categories, setCategories] = useState<Record<string, string>[]>([])
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const getCategories = async () => {
+      try {
+        const res = await fetch('https://www.themealdb.com/api/json/v1/1/categories.php');
+        const data = await res.json();
+        setCategories(data.categories);
+      } catch (err) {
+        console.error(err)
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    getCategories();
+  }, [])
 
   const onSubmit = (data: FormValues) => {
     const recipe = {
@@ -21,6 +40,10 @@ export const AddRecipe = () => {
 
     navigate('/recipes')
   };
+
+  if (loading) {
+    return <div className="text-center text-xl">Loading ok ok</div>;
+  }
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -43,12 +66,9 @@ export const AddRecipe = () => {
             id='Category'
           >
             <option value="">Select category</option>
-            <option value="pasta">Pasta</option>
-            <option value="seafood">Seafood</option>
-            <option value="meat">Meat</option>
-            <option value="dessert">Dessert</option>
-            <option value="soup">Soup</option>
-            <option value="miscellaneous">Miscellaneous</option>
+            {categories.map(c => (
+              <option key={c.idCategory} value={c.strCategory}>{c.strCategory}</option>
+            ))}
           </select>
           {errors.category && <span className="text-red-500 text-sm">{errors.category.message}</span>}
         </div>

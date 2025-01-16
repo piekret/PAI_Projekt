@@ -3,7 +3,7 @@ import {useParams} from "react-router-dom";
 
 export const RecipeItem = () => {
     const {id} = useParams();
-    const [recipe, setRecipe] = useState<Record<string, string | undefined> | null>(null);
+    const [recipe, setRecipe] = useState<Record<string, string | null> | null>();
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -13,17 +13,30 @@ export const RecipeItem = () => {
                 const data = await res.json();
                 setRecipe(data.meals[0]);
             } catch(err) {
-                console.error("Wystąpił błąd: ", err);
+                console.error("Trouble finding the recipe: ", err);
             } finally {
                 setLoading(false);
             }
         }
         getRecipe();
     }, [id]);
-    if (!recipe) {
-        return <div className="text-center text-xl text-red-500">Recipe not found!</div>;
+
+    if (loading) {
+        return <div className="text-center text-xl">Loading ok ok</div>;
     }
+
+    if (!recipe) {
+        return <div className="text-center text-xl">Recipe not found</div>
+    }
+
     const getIngredients = () => {
+
+        console.log(recipe);
+
+        if (!recipe) {
+            <div className="text-center text-xl">Recipe not found</div>
+        }
+
         const ingredients = [];
 
         for (let i = 1; i <= 20; i++) {
@@ -31,12 +44,7 @@ export const RecipeItem = () => {
         }
         return ingredients
     }
-    useEffect(()=>{
-        console.log(recipe,"recipecheck ")
-    },[recipe])
-    if (loading) {
-        return <div className="text-center text-xl">Loading ok ok</div>;
-    }
+
 
     const ingredients = getIngredients();
 
