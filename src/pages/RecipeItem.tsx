@@ -3,7 +3,7 @@ import {useParams} from "react-router-dom";
 
 export const RecipeItem = () => {
     const {id} = useParams();
-    const [recipe, setRecipe] = useState<Record<string, string | null> | null>();
+    const [recipe, setRecipe] = useState<Record<string, string | undefined> | null>(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -20,7 +20,9 @@ export const RecipeItem = () => {
         }
         getRecipe();
     }, [id]);
-
+    if (!recipe) {
+        return <div className="text-center text-xl text-red-500">Recipe not found!</div>;
+    }
     const getIngredients = () => {
         const ingredients = [];
 
@@ -29,7 +31,9 @@ export const RecipeItem = () => {
         }
         return ingredients
     }
-
+    useEffect(()=>{
+        console.log(recipe,"recipecheck ")
+    },[recipe])
     if (loading) {
         return <div className="text-center text-xl">Loading ok ok</div>;
     }
