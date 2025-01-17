@@ -1,12 +1,12 @@
 import {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+import {useParams, Link} from "react-router-dom";
 import {useRecipe} from "../context/useRecipe";
 
 export const RecipeItem = () => {
     const {id} = useParams();
-    const [recipe, setRecipe] = useState<Record<string, string | null> | null>();
+    const [recipe, setRecipe] = useState<Record<string, string | string[] | number> | null>();
     const [loading, setLoading] = useState(true);
-    const {recipes} = useRecipe();
+    const {recipes, addToFav} = useRecipe();
     const [isUser, setIsUser] = useState(false)
 
     useEffect(() => {
@@ -64,6 +64,11 @@ export const RecipeItem = () => {
             {recipe.strMealThumb || recipe.image ? (
                 <img src={recipe.strMealThumb || recipe.image} alt={recipe.strMeal || recipe.name} className="w-full max-w-sm mx-auto rounded-lg mb-6" />
             ) : null}
+
+            <button onClick={() => addToFav(recipe)}>
+                ⭐
+            </button>
+            <Link to="/favs">sigma</Link>
 
             <div className="rounded-md shadow-sm p-4 mb-6 bg-gray-100">
                 <h2 className="text-lg font-semibold text-gray-700 mb-2">Informacje</h2>

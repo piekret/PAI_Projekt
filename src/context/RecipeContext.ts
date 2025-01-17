@@ -14,7 +14,10 @@ export type RecipeNoId = Omit<Recipe, "id">
 
 type RecipeContextResult = {
     recipes: Recipe[],
-    addRecipe: (recipe: RecipeNoId) => void;
+    favs: Record<string, string | string[] | number>[],
+    addRecipe: (recipe: RecipeNoId) => void,
+    addToFav: (recipe: Record<string, string | string[] | number>) => void, // typowane w taki sposob bo nie wiadomo czy przepis jest z api czy uzytkownika
+    removeFromFav: (id: number) => void
 } | null
 
 export const RecipeContext = createContext<RecipeContextResult>(null);

@@ -5,7 +5,7 @@ import { RecipeList } from "../pages/RecipeList";
 import { RecipeItem } from "../pages/RecipeItem";
 import { AddRecipe } from "../pages/AddRecipe";
 import { NotFoundPage } from "../pages/NotFoundPage"; 
-import { UserRecipeItem } from "../pages/UserRecipeItem";
+import { FavRecipes } from "../pages/FavRecipes";
 
 const router = createBrowserRouter([
     {
@@ -28,6 +28,10 @@ const router = createBrowserRouter([
         path: "*", 
         element: <NotFoundPage />
     },
+    {
+        path: "/favs",
+        element: <FavRecipes />
+    }
 ]);
 
 export const Router = () => {
