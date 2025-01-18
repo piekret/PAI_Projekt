@@ -16,7 +16,7 @@ export const FavRecipes = () => {
                   key={r.id || r.idMeal}
                   className="border border-gray-200 rounded-lg bg-white shadow hover:shadow-lg hover:scale-105 transition-transform"
                 >
-                <Link to={r.idMeal ? `recipes/${r.idMeal}`: `/recipes/user-${r.id}`}>
+                <Link to={r.idMeal ? `/recipes/${r.idMeal}`: `/recipes/user-${r.id}`}>
                     <img
                         src={r.strMealThumb || r.image}
                         alt={r.strMeal || r.name}
