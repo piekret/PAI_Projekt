@@ -12,9 +12,9 @@ export const RecipeItem = () => {
     useEffect(() => {
         const getRecipe = async () => {
             try {
-                if (id.startsWith("user-")) {
+                if (id && id.startsWith("user-")) {
                     const userRecipeId = id.split("-")[1];
-                    const userRecipe = recipes.find(r => r.id == userRecipeId);
+                    const userRecipe = recipes.find(r => String(r.id) == userRecipeId);
                     setRecipe(userRecipe || null);
                     setIsUser(true);
                 } else {
@@ -59,48 +59,55 @@ export const RecipeItem = () => {
     const ingredients = getIngredients();
 
     return (
-        <div className="mx-auto max-w-3xl p-8 bg-white rounded-lg shadow-md text-center"
-            style={{
-                boxShadow: "0 15px 30px rgba(0, 0, 0, 1)",
-            }}
-        >
-            <h1 className="text-4xl font-bold text-[#8b4513] mb-6">{recipe.strMeal || recipe.name}</h1>
-            {recipe.strMealThumb || recipe.image ? (
-                <img src={recipe.strMealThumb || recipe.image} alt={recipe.strMeal || recipe.name} className="w-full max-w-sm mx-auto rounded-lg mb-6 shadow-lg border-2 border-[#c2b280]" />
-            ) : null}
+        <div className="bg-[url('https://www.interregeurope.eu/sites/default/files/news/Wood.jpg')] bg-cover bg-center bg-no-repeat">
+                <div 
+                className="mx-auto max-w-3xl p-8 bg-white rounded-lg shadow-md text-center"
+                style={{
+                    boxShadow: "0 15px 30px rgba(0, 0, 0, 1)",
+                }}
+            >
+                <h1 className="text-4xl font-bold text-[#8b4513] mb-6">{recipe.strMeal || recipe.name}</h1>
+                {recipe.strMealThumb || recipe.image ? (
+                    <img src={String(recipe.strMealThumb || recipe.image)} alt={String(recipe.strMeal || recipe.name)} className="w-full max-w-sm mx-auto rounded-lg mb-6 shadow-lg border-2 border-[#c2b280]" />
+                ) : null}
 
-            <div className="mb-6 flex justify-center gap-4">
-                <button
-                    onClick={() => addToFav(recipe)}
-                    className="px-4 py-2 bg-[#f8f3e7] text-[#8b4513] border border-[#c2b280] rounded-lg shadow hover:bg-[#f2e8d8] transition-transform transform hover:-translate-y-1"
-                >
-                ⭐
-                </button>
-                <Link
-                    to="/favs"
-                    className="px-4 py-2 bg-[#f8f3e7] text-[#8b4513] border border-[#c2b280] rounded-lg shadow hover:bg-[#f2e8d8] transition-transform transform hover:-translate-y-1"
-                >
-                    View Favorites
-                </Link>
+                <div className="mb-6 flex justify-center gap-4">
+                    <button
+                        onClick={() => addToFav(recipe)}
+                        className="px-4 py-2 bg-[#f8f3e7] text-[#8b4513] border border-[#c2b280] rounded-lg shadow hover:bg-[#f2e8d8] transition-transform transform hover:-translate-y-1"
+                    >
+                    ⭐
+                    </button>
+                    <Link
+                        to="/favs"
+                        className="px-4 py-2 bg-[#f8f3e7] text-[#8b4513] border border-[#c2b280] rounded-lg shadow hover:bg-[#f2e8d8] transition-transform transform hover:-translate-y-1"
+                    >
+                        View Favorites
+                    </Link>
+                </div>
+
+                <div className="rounded-md shadow-md p-4 mb-6 bg-[#fdfaf4] border border-[#e6dec9]">
+                    <h2 className="text-lg font-semibold text-[#8b4513] mb-2">Details</h2>
+                    <h3 className="text-gray-600">Category: {recipe.strCategory || recipe.category}</h3>
+                    <h3 className="text-gray-600">Cuisine: {recipe.strArea || recipe.cuisine}</h3>
+                </div>
+
+                <h2 className="text-lg font-semibold text-[#8b4513] mb-4">Ingredients:</h2>
+                <ul className="text-left text-gray-600 list-disc list-inside mb-6">
+                    {Array.isArray(ingredients) && ingredients.map(i => (
+                        <div>
+                            <li key={String(i)}>{i}</li>
+                        </div>
+                        
+                    ))}
+                </ul>
+
+                <h2 className="text-lg font-semibold text-[#8b4513] mt-6 mb-4">Instructions:</h2>
+                <p className="text-gray-600 text-left whitespace-pre-wrap bg-[#fdfaf4] rounded-md p-4 border border-[#e6dec9] shadow-md">
+                    {recipe.strInstructions || recipe.instructions}
+                </p>
             </div>
-
-            <div className="rounded-md shadow-md p-4 mb-6 bg-[#fdfaf4] border border-[#e6dec9]">
-                <h2 className="text-lg font-semibold text-[#8b4513] mb-2">Details</h2>
-                <h3 className="text-gray-600">Category: {recipe.strCategory || recipe.category}</h3>
-                <h3 className="text-gray-600">Cuisine: {recipe.strArea || recipe.cuisine}</h3>
-            </div>
-
-            <h2 className="text-lg font-semibold text-[#8b4513] mb-4">Ingredients:</h2>
-            <ul className="text-left text-gray-600 list-disc list-inside mb-6">
-                {ingredients.map(i => (
-                    <li key={i}>{i}</li>
-                ))}
-            </ul>
-
-            <h2 className="text-lg font-semibold text-[#8b4513] mt-6 mb-4">Instructions:</h2>
-            <p className="text-gray-600 text-left whitespace-pre-wrap bg-[#fdfaf4] rounded-md p-4 border border-[#e6dec9] shadow-md">
-                {recipe.strInstructions || recipe.instructions}
-            </p>
         </div>
+       
     )
 }

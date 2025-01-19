@@ -1,9 +1,18 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useRecipe } from "../context/useRecipe";
+import type { Recipe } from "../context/RecipeContext";
+
+type ApiRecipe = {
+  idMeal: string;
+  strMeal: string;
+  strMealThumb: string;
+}
+
+type Combined = ApiRecipe | Recipe
 
 export const RecipeList = () => {
-  const [apiRecipes, setApiRecipes] = useState<Record<string, string | null>[]>([]);
+  const [apiRecipes, setApiRecipes] = useState<ApiRecipe[]>([]);
   const [loading, setLoading] = useState(false);
   const { recipes } = useRecipe();
   const [searchQuery, setSearchQuery] = useState("");
@@ -70,7 +79,7 @@ export const RecipeList = () => {
     return false;
   });
 
-  const combinedRecipes = [...filteredApiRecipes, ...filteredUserRecipes];
+  const combinedRecipes: Combined[] = [...filteredApiRecipes, ...filteredUserRecipes];
 
   if (loading) {
     return <div className="text-center text-xl">Loading...</div>;
@@ -122,17 +131,17 @@ export const RecipeList = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6 bg-white rounded-lg">
           {combinedRecipes.map(r => (
             <Link
-              to={r.idMeal ? `/recipes/${r.idMeal}` : `/recipes/user-${r.id}`}
-              key={r.idMeal || r.name}
+              to={"idMeal" in r ? `/recipes/${r.idMeal}` : `/recipes/user-${r.id}`}
+              key={"idMeal" in r ? r.idMeal : r.id}
               className="relative overflow-hidden group rounded-xl shadow-lg bg-[#fdfaf4] border border-[#e6dec9] hover:shadow-2xl transition-transform transform hover:-translate-y-1"
             >
               <div className="w-full h-40 overflow-hidden rounded-t-xl">
-                <img src={r.strMealThumb || r.image} alt={r.strMeal || r.name} className="w-full h-full object-cover"/>
+                <img src={"strMealThumb" in r ? r.strMealThumb : r.image} alt={"strMeal" in r ? r.strMeal : r.name} className="w-full h-full object-cover"/>
               </div>
               
               <div className="p-4">
                 <p className="text-lg font-medium text-[#8b4513] mb-2 text-center">
-                  {r.strMeal || r.name}
+                  {"strMeal" in r ? r.strMeal : r.name}
                 </p>
               </div>
             </Link>
@@ -140,5 +149,5 @@ export const RecipeList = () => {
         </div>
       </div>
     </div>
-  );
+  )
 };

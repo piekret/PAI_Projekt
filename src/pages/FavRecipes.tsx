@@ -23,7 +23,7 @@ export const FavRecipes = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                     {favs.map(r => (
                         <div
-                            key={r.id || r.idMeal}
+                            key={String(r.id || r.idMeal)}
                             className="border border-[#e6dec9] rounded-lg bg-white shadow-lg hover:shadow-xl transition-transform transform hover:scale-105"
                             style={{
                               boxShadow: "0 15px 30px rgba(0, 0, 0, 1)",
@@ -31,8 +31,8 @@ export const FavRecipes = () => {
                         >
                             <Link to={r.idMeal ? `/recipes/${r.idMeal}` : `/recipes/user-${r.id}`}>
                                 <img
-                                    src={r.strMealThumb || r.image}
-                                    alt={r.strMeal || r.name}
+                                    src={String(r.strMealThumb || r.image)}
+                                    alt={String(r.strMeal || r.name)}
                                     className="w-full h-40 object-cover rounded-t-lg"
                                 />
                             </Link>
@@ -40,7 +40,7 @@ export const FavRecipes = () => {
                             <div className="p-4">
                                 <h2 className="text-lg font-medium text-[#8b4513] mb-4">{r.strMeal || r.name}</h2>
                                 <button
-                                    onClick={() => removeFromFav(r.id || r.idMeal)}
+                                    onClick={() => removeFromFav(Number(r.id || r.idMeal))}
                                     className="mt-2 bg-red-500 text-white py-2 px-4 rounded-lg shadow hover:bg-red-600 transition"
                                 >
                                     Remove
