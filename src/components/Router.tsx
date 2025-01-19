@@ -29,7 +29,7 @@ const router = createBrowserRouter([
         element: <NotFoundPage />
     },
     {
-        path: "/favs",
+        path: Links.FAVS,
         element: <FavRecipes />
     }
 ]);

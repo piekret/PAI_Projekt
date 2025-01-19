@@ -14,7 +14,7 @@ export const RecipeList = () => {
     const fetchRecipes = async () => {
       setLoading(true);
       try {
-        let url = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+        let url = "https://www.themealdb.com/api/json/v1/1/search.php?s=";
 
         if (category) {
           url = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`;
@@ -24,7 +24,7 @@ export const RecipeList = () => {
         const data = await res.json();
 
         setApiRecipes(data.meals || []);
-        console.log(url)
+        console.log(url);
       } catch (err) {
         console.error("Error fetching recipes:", err);
       } finally {
@@ -33,95 +33,111 @@ export const RecipeList = () => {
     };
 
     fetchRecipes();
-    console.log(apiRecipes)
+    console.log(apiRecipes);
   }, [category]);
 
   useEffect(() => {
     const getCategories = async () => {
       try {
-        const res = await fetch('https://www.themealdb.com/api/json/v1/1/categories.php');
+        const res = await fetch("https://www.themealdb.com/api/json/v1/1/categories.php");
         const data = await res.json();
         setCategories(data.categories);
       } catch (err) {
-        console.error(err)
+        console.error(err);
       } finally {
         setLoading(false);
       }
-    }
+    };
 
     getCategories();
-  }, [])
+  }, []);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
   };
 
-  const filteredApiRecipes = apiRecipes.filter(recipe => {
+  const filteredApiRecipes = apiRecipes.filter((recipe) => {
     if (recipe.strMeal) {
-        return recipe.strMeal.toLowerCase().includes(searchQuery.toLowerCase());
-    } return false;
-  })
+      return recipe.strMeal.toLowerCase().includes(searchQuery.toLowerCase());
+    }
+    return false;
+  });
 
-  console.log(filteredApiRecipes)
-
-  const filteredUserRecipes = recipes.filter(recipe => {
+  const filteredUserRecipes = recipes.filter((recipe) => {
     if (recipe.name) {
-       return recipe.name.toLowerCase().includes(searchQuery.toLowerCase());
-    } return false;
-  })
+      return recipe.name.toLowerCase().includes(searchQuery.toLowerCase());
+    }
+    return false;
+  });
 
-  const combinedRecipes = [...filteredApiRecipes, ...filteredUserRecipes]
+  const combinedRecipes = [...filteredApiRecipes, ...filteredUserRecipes];
 
   if (loading) {
     return <div className="text-center text-xl">Loading...</div>;
   }
 
   return (
-    <div className="p-8 text-center bg-gray-100 min-h-screen rounded mb-4">
-      <div>
-        <h1 className="text-3xl font-bold text-gray-800 mb-6">Recipe List</h1>
-        <input
-          type="text"
-          placeholder="Search"
-          value={searchQuery}
-          onChange={handleSearch}
-          className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
-        />
-        <Link
-          to="/add-recipe"
-          className="inline-block mt-4 px-6 py-3 text-xl font-semibold text-gray-700 bg-gray-200 shadow-md hover:bg-gray-300 transition-transform transform hover:translate-y-[-3px] ml-5"
-        >
-          Add new recipe
-        </Link>
-        <select
-          className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-300 ml-8 mb-8"
-          onChange={e => setCategory(e.target.value)}
-          value={category}
-        >
-          <option value="">All</option>
-          {categories.map(c => (
-            <option key={c.idCategory} value={c.strCategory}>{c.strCategory}</option>
-          ))}
-        </select>
-      </div>
+    <div
+      className="min-h-screen flex flex-col items-center p-8 font-serif
+      bg-[url('https://www.interregeurope.eu/sites/default/files/news/Wood.jpg')] bg-cover bg-center bg-no-repeat"
+    >
+      <div
+        className="w-full max-w-screen-xl p-6 md:p-10 bg-white border-2 border-[#c2b280] rounded-xl relative mt-10 mb-10"
+        style={{
+          boxShadow: "0 15px 30px rgba(0, 0, 0, 1)",
+        }}
+      >
+        <h1 className="text-3xl md:text-4xl font-bold text-[#8b4513] text-center mb-8">
+          Recipe List
+        </h1>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {combinedRecipes.map(r => (
+        <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-8">
+          <input
+            type="text"
+            placeholder="Search"
+            value={searchQuery}
+            onChange={handleSearch}
+            className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8b4513] transition w-full md:w-auto"
+          />
           <Link
-            to={r.idMeal ? `/recipes/${r.idMeal}` : `/recipes/user-${r.id}`}
-            key={r.idMeal || r.name}
-            className="border border-gray-200 rounded-lg bg-white shadow hover:shadow-lg hover:scale-105 transition-transform"
+            to="/add-recipe"
+            className="px-6 py-3 text-lg font-medium bg-[#f8f3e7] text-[#8b4513] border border-[#c2b280] rounded-lg shadow hover:bg-[#f2e8d8] transition-transform transform hover:-translate-y-1"
           >
-            <div className="p-4">
-              <img
-                src={r.strMealThumb || r.image}
-                alt={r.strMeal || r.name}
-                className="w-full h-32 object-cover rounded mb-4"
-              />
-              <p className="text-lg font-medium text-gray-700">{r.strMeal || r.name}</p>
-            </div>
+            Add new recipe
           </Link>
-        ))}
+          <select
+            className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8b4513]transition"
+            onChange={e => setCategory(e.target.value)}
+            value={category}
+          >
+            <option value="">All</option>
+            {categories.map(c => (
+              <option key={c.idCategory} value={c.strCategory}>
+                {c.strCategory}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6 bg-white rounded-lg">
+          {combinedRecipes.map(r => (
+            <Link
+              to={r.idMeal ? `/recipes/${r.idMeal}` : `/recipes/user-${r.id}`}
+              key={r.idMeal || r.name}
+              className="relative overflow-hidden group rounded-xl shadow-lg bg-[#fdfaf4] border border-[#e6dec9] hover:shadow-2xl transition-transform transform hover:-translate-y-1"
+            >
+              <div className="w-full h-40 overflow-hidden rounded-t-xl">
+                <img src={r.strMealThumb || r.image} alt={r.strMeal || r.name} className="w-full h-full object-cover"/>
+              </div>
+              
+              <div className="p-4">
+                <p className="text-lg font-medium text-[#8b4513] mb-2 text-center">
+                  {r.strMeal || r.name}
+                </p>
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
     </div>
   );
