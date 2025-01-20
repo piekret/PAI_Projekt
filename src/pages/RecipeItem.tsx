@@ -45,7 +45,7 @@ export const RecipeItem = () => {
         </div>;
     }
 
-    if (!recipe) {
+    if (!recipe || (!recipe.strMeal && !recipe.name)) {
         return (
             <div
                 className="flex items-center justify-center min-h-screen bg-[url('https://www.interregeurope.eu/sites/default/files/news/Wood.jpg')] bg-cover bg-center bg-no-repeat"
