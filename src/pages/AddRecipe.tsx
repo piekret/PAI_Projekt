@@ -93,7 +93,8 @@ export const AddRecipe = () => {
         <div>
           <label className="block text-[#8b4513] font-medium mb-2" htmlFor='Ingredients'>Ingredients (separate with ,):</label>
           <textarea
-            {...register('ingredients', { required: 'This field is required' })}
+            {...register('ingredients', { required: 'This field is required',  validate: (value) =>
+              value.split(",").every(s => s.trim().length > 0) || "Each ingredient must be non-empty", })}
             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8b4513] transition"
             id='Ingredients'
           />
@@ -103,6 +104,7 @@ export const AddRecipe = () => {
         <div>
           <label className="block text-[#8b4513] font-medium mb-2" htmlFor='Image'>Image (URL):</label>
           <input
+            type="url"
             {...register('image', { required: 'This field is required' })}
             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8b4513] transition"
             id='Image'
