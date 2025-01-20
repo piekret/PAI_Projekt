@@ -40,7 +40,10 @@ export const FavRecipes = () => {
                             <div className="p-4">
                                 <h2 className="text-lg font-medium text-[#8b4513] mb-4">{r.strMeal || r.name}</h2>
                                 <button
-                                    onClick={() => removeFromFav(Number(r.id || r.idMeal))}
+                                    onClick={() => {
+                                        const id = "id" in r ? r.id : r.idMeal
+                                        removeFromFav(Number(id))
+                                    }}
                                     className="mt-2 bg-red-500 text-white py-2 px-4 rounded-lg shadow hover:bg-red-600 transition"
                                 >
                                     Remove

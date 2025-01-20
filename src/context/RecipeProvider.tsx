@@ -18,8 +18,9 @@ export const RecipeProvider = ({ children }: PropsWithChildren) => {
         })
     }
 
-    const removeFromFav = (id: number | string) => {
-        setFavs(prev => prev.filter(fav => (fav.id || fav.idMeal) != id));
+    const removeFromFav = (id: number) => {
+        setFavs(prev => prev.filter(fav => {(fav.id || fav.idMeal) != id}));
+        console.log(id);
     }
 
     return (

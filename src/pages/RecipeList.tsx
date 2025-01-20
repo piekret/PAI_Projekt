@@ -87,7 +87,7 @@ export const RecipeList = () => {
 
   return (
     <div
-      className="min-h-screen flex flex-col items-center p-8 font-serif
+      className="min-h-screen flex flex-col items-center p-8
       bg-[url('https://www.interregeurope.eu/sites/default/files/news/Wood.jpg')] bg-cover bg-center bg-no-repeat"
     >
       <div
