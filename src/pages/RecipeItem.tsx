@@ -38,11 +38,23 @@ export const RecipeItem = () => {
 
     // obsługa loading state
     if (loading) {
-        return <div className="text-center text-xl">Loading ok ok</div>;
+        return <div className="text-3xl font-bold text-[#8b4513] mb-6 inline-block bg-white px-4 py-2 rounded-lg shadow-md
+        bg-[url('https://www.interregeurope.eu/sites/default/files/news/Wood.jpg')] bg-cover bg-center bg-no-repeat min-h-screen min-w-screen"
+        >
+            Loading ok ok
+        </div>;
     }
 
     if (!recipe) {
-        return <div className="text-center text-xl">Recipe not found</div>
+        return (
+            <div
+                className="flex items-center justify-center min-h-screen bg-[url('https://www.interregeurope.eu/sites/default/files/news/Wood.jpg')] bg-cover bg-center bg-no-repeat"
+            >
+                <div className="text-3xl font-bold text-[#8b4513] px-6 py-4 bg-white rounded-lg shadow-lg">
+                    Recipe not found
+                </div>
+            </div>
+        );
     }
 
     // składniki
