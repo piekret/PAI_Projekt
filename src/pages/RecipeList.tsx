@@ -73,12 +73,10 @@ export const RecipeList = () => {
   });
 
   const filteredUserRecipes = recipes.filter((recipe) => {
-    if (recipe.name) {
-      return recipe.name.toLowerCase().includes(searchQuery.toLowerCase());
-    }
-    return false;
+    const matchesCategory = !category || recipe.category === category;
+    const matchesSearch = recipe.name.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesCategory && matchesSearch;
   });
-
   const combinedRecipes: Combined[] = [...filteredApiRecipes, ...filteredUserRecipes];
 
   if (loading) {
