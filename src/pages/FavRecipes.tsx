@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 export const FavRecipes = () => {
     const {favs, removeFromFav} = useRecipe();
 
+    // lista ulubionych przepisow
     return (
         <div 
           className="p-8 text-center bg-[#f8f3e7] min-h-screen
@@ -28,7 +29,7 @@ export const FavRecipes = () => {
                             style={{
                               boxShadow: "0 15px 30px rgba(0, 0, 0, 1)",
                             }}
-                        >
+                        >   {/*link na podstawie czy recipe jest uzytkownika czy z api*/}
                             <Link to={r.idMeal ? `/recipes/${r.idMeal}` : `/recipes/user-${r.id}`}>
                                 <img
                                     src={String(r.strMealThumb || r.image)}

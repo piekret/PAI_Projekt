@@ -9,6 +9,7 @@ type ApiRecipe = {
   strMealThumb: string;
 }
 
+// typ dla końcowej listy przepisów
 type Combined = ApiRecipe | Recipe
 
 export const RecipeList = () => {
@@ -19,12 +20,15 @@ export const RecipeList = () => {
   const [category, setCategory] = useState("");
   const [categories, setCategories] = useState<Record<string, string>[]>([]);
 
+  // pobranie przepisów z api na podstawie kategorii
   useEffect(() => {
     const fetchRecipes = async () => {
       setLoading(true);
       try {
+        // jesli nie ma wybranej kategorii pobiera ogólne przepisy
         let url = "https://www.themealdb.com/api/json/v1/1/search.php?s=";
 
+        // jesli jest wybrana kategoria to pobiera przepisy z danej kategorii
         if (category) {
           url = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`;
         }
@@ -32,6 +36,7 @@ export const RecipeList = () => {
         const res = await fetch(url);
         const data = await res.json();
 
+        // obsługa wrazie lista pobranych nie istniała
         setApiRecipes(data.meals || []);
         console.log(url);
       } catch (err) {
@@ -45,6 +50,8 @@ export const RecipeList = () => {
     console.log(apiRecipes);
   }, [category]);
 
+
+  // pobieranie kategorii
   useEffect(() => {
     const getCategories = async () => {
       try {
@@ -65,6 +72,7 @@ export const RecipeList = () => {
     setSearchQuery(e.target.value);
   };
 
+  // filtrowanie przepisow z api względem wyszukiwarki
   const filteredApiRecipes = apiRecipes.filter((recipe) => {
     if (recipe.strMeal) {
       return recipe.strMeal.toLowerCase().includes(searchQuery.toLowerCase());
@@ -72,6 +80,7 @@ export const RecipeList = () => {
     return false;
   });
 
+  // filtrowanie przepisów użytkownika względem wyszukiarki i kategorii
   const filteredUserRecipes = recipes.filter((recipe) => {
     const matchesCategory = !category || recipe.category === category;
     const matchesSearch = recipe.name.toLowerCase().includes(searchQuery.toLowerCase());
@@ -83,6 +92,7 @@ export const RecipeList = () => {
     return <div className="text-center text-xl">Loading...</div>;
   }
 
+  // wyświetlenie listy przepisów
   return (
     <div
       className="min-h-screen flex flex-col items-center p-8

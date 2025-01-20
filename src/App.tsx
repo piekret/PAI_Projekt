@@ -3,6 +3,7 @@ import { RecipeProvider } from './context/RecipeProvider'
 
 function App() {
   return (
+    // Router zawartu w providerze aby nie było błędów
     <RecipeProvider>
       <Router />
     </RecipeProvider>

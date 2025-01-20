@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Player } from "@lottiefiles/react-lottie-player";
-import animationData from "../components/Animation - 1737015831636.json";
+import animationData from "../assets/Animation - 1737015831636.json";
 
 export const NotFoundPage: React.FC = () => {
     const navigate = useNavigate();
@@ -21,7 +21,7 @@ export const NotFoundPage: React.FC = () => {
             <div 
                 className="bg-white p-8 rounded-xl shadow-2xl text-center max-w-lg mx-auto"
 
-            >
+            > {/*animacja z lottie*/}
                 <Player
                     autoplay
                     loop

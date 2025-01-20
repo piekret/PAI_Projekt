@@ -3,21 +3,26 @@ import {useParams, Link} from "react-router-dom";
 import {useRecipe} from "../context/useRecipe";
 
 export const RecipeItem = () => {
+    // pobranie id przepisu z linkow
     const {id} = useParams();
     const [recipe, setRecipe] = useState<Record<string, string | string[] | number> | null>();
     const [loading, setLoading] = useState(true);
     const {recipes, addToFav} = useRecipe();
     const [isUser, setIsUser] = useState(false)
 
+    // pobieranie przepisu z api na podstawie id z parametrow w linku
     useEffect(() => {
         const getRecipe = async () => {
             try {
+                // sprawdzenie czy przepis jest uzytkownika
                 if (id && id.startsWith("user-")) {
+                    // obsługa przepisu jesli jest użytkownika
                     const userRecipeId = id.split("-")[1];
                     const userRecipe = recipes.find(r => String(r.id) == userRecipeId);
                     setRecipe(userRecipe || null);
                     setIsUser(true);
                 } else {
+                    // obsługa przepisu jeśli jest z api
                     const res = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
                     const data = await res.json();
                     setRecipe(data.meals ? data.meals[0] : null);
@@ -31,6 +36,7 @@ export const RecipeItem = () => {
         getRecipe();
     }, [id, recipes]);
 
+    // obsługa loading state
     if (loading) {
         return <div className="text-center text-xl">Loading ok ok</div>;
     }
@@ -39,7 +45,9 @@ export const RecipeItem = () => {
         return <div className="text-center text-xl">Recipe not found</div>
     }
 
+    // składniki
     const getIngredients = () => {
+        // obsługa składników jest przepis jest użytkownika
         if (isUser) {
             return recipe.ingredients;
         }
@@ -50,6 +58,7 @@ export const RecipeItem = () => {
 
         const ingredients = [];
 
+        // obsługa składnikow jeśli przepis jest z api
         for (let i = 1; i <= 20; i++) {
             if (recipe[`strIngredient${i}`]) ingredients.push(recipe[`strIngredient${i}`]);
         }
@@ -58,6 +67,7 @@ export const RecipeItem = () => {
 
     const ingredients = getIngredients();
 
+    // wyświetlenie szczegółów danego przepisu
     return (
         <div className="bg-[url('https://www.interregeurope.eu/sites/default/files/news/Wood.jpg')] bg-cover bg-center bg-no-repeat min-h-screen">
                 <div 
@@ -71,6 +81,7 @@ export const RecipeItem = () => {
                     <img src={String(recipe.strMealThumb || recipe.image)} alt={String(recipe.strMeal || recipe.name)} className="w-full max-w-sm mx-auto rounded-lg mb-6 shadow-lg border-2 border-[#c2b280]" />
                 ) : null}
 
+                {/* dodanie przepisu do ulubionych */}
                 <div className="mb-6 flex justify-center gap-4">
                     <button
                         onClick={() => addToFav(recipe)}

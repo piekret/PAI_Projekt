@@ -7,6 +7,7 @@ import { AddRecipe } from "../pages/AddRecipe";
 import { NotFoundPage } from "../pages/NotFoundPage"; 
 import { FavRecipes } from "../pages/FavRecipes";
 
+// router
 const router = createBrowserRouter([
     {
         path: Links.HOMEPAGE,

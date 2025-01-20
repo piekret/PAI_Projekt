@@ -3,6 +3,7 @@ import Lottie from "lottie-react";
 import chefAnimation from "../assets/chefAnimation.json";
 
 export const HomePage = () => {
+  // strona główna
   return (
     <div className="bg-[#f8f3e7] bg-[url('https://www.interregeurope.eu/sites/default/files/news/Wood.jpg')] bg-cover bg-center bg-no-repeatmin-h-screen">
       <div
@@ -30,7 +31,7 @@ export const HomePage = () => {
           >
             Favorites
           </Link>
-          
+          {/*animacja z lottie*/}
           <div className="w-80 lg:w-[30rem]">
             <Lottie animationData={chefAnimation} loop autoplay />
           </div>

@@ -15,6 +15,7 @@ export const AddRecipe = () => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
+  // useEffect do pobierania listy kategorii
   useEffect(() => {
     const getCategories = async () => {
       try {
@@ -31,6 +32,8 @@ export const AddRecipe = () => {
     getCategories();
   }, [])
 
+
+  // obsługa submitu
   const onSubmit = (data: FormValues) => {
     const recipe = {
       ...data,
@@ -41,10 +44,14 @@ export const AddRecipe = () => {
     navigate('/recipes')
   };
 
+
+  // obsługa loading state
   if (loading) {
     return <div className="text-center text-xl">Loading ok ok</div>;
   }
 
+
+  // główny formularz dodawania przepisow
   return (
     <div
       className="flex items-center justify-center min-h-screen 
@@ -52,7 +59,7 @@ export const AddRecipe = () => {
     >
       <form onSubmit={handleSubmit(onSubmit)} className="max-w-3xl w-full bg-white shadow-2xl rounded-xl p-6 space-y-6 border border-[#c2b280]"
         style={{
-          boxShadow: "0 15px 30px rgba(0, 0, 0, 1)",
+          boxShadow: "0 15px 30px rgba(0, 0, 0, 1)"
         }}
       >
         <div>

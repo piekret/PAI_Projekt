@@ -20,4 +20,5 @@ type RecipeContextResult = {
     removeFromFav: (id: number) => void
 } | null
 
+// utworzenie contextu
 export const RecipeContext = createContext<RecipeContextResult>(null);
